@@ -3,22 +3,31 @@
 @import './includes/reset'
 @import './includes/mixins'
 
-@import './includes/_header'
-
 html,
 body
   scroll-behavior: smooth
   font-family: 'Open Sans', sans-serif
   font-size: 10px
   line-height: 1.6
-  overflow-x: hidden
-a
-  color: inherit
 body
   height: 100vh
   font-size: 1.4rem
   line-height: 1.6
-
+  .main
+    height: 100%
+    background-color: #fc4
+    &-container
+      padding: 2rem
+      &__title
+        font-size: 4rem
+        font-weight: 700
+        text-align: center
+      &__image
+        max-width: 40%
+        margin: 2rem auto 0
+        border-radius: .5rem
+        overflow: hidden
+        box-shadow: 0 0 .8rem rgba(0, 0, 0, .5)
 
 // Social networks icons
 .social-networks

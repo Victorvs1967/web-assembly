@@ -4,7 +4,14 @@ block title
   title Main Page 
 
 block content 
+  main.main
+    .main-container
+      h1.main-container__title Hello, World!
+      .main-container__image
+        img(src="@img/photo.png", alt="image")
+      .social-networks
+        +svg-icon('telegram', 'social-networks__icon')
 
-
-    //-   .social-networks
-    //-     +svg-icon('telegram', 'social-networks__icon')
+    button.burger-menu__control
+      span.burger__item
+      span.close__item
