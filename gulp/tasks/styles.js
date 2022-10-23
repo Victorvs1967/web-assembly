@@ -13,7 +13,7 @@ export const styles = () => app.gulp.src(app.path.src.styles, { sourcemaps: app.
     title: "SASS",
     message: "Error: <%= error.message %>"
   })))
-  .pipe(app.plugins.replace(/@img\//g, '../img/'))
+  // .pipe(app.plugins.replace(/@img\//g, '../img/'))
   .pipe(sass({ outputStyle: 'compressed' }))
   .pipe(app.plugins.if(app.isBuild, groupcssmedia()))
   .pipe(app.plugins.if(app.isBuild, webpcss({
@@ -30,5 +30,6 @@ export const styles = () => app.gulp.src(app.path.src.styles, { sourcemaps: app.
     basename: 'main',
     suffix: '.min',
   }))
+  .pipe(app.plugins.replace(/@img\//g, '../img/'))
   .pipe(app.gulp.dest(app.path.dest.styles))
   .pipe(app.plugins.browsersync.stream());
