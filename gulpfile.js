@@ -20,7 +20,7 @@ global.app = {
   plugins: plugins,
 }
 
-export { svgSprite };
+export { svgSprite, clean };
 
 export const watch = () => {
   gulp.watch(path.watch.images, images);
