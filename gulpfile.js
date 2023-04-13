@@ -12,9 +12,12 @@ import { otfToTtf, ttfToWoff, fontsStyle } from './gulp/tasks/fonts.js';
 import { svgSprite } from './gulp/tasks/svgsprite.js';
 import { zip } from './gulp/tasks/zip.js';
 
+const isBuild = process.argv.includes('--production')
+const isDev = !isBuild;
+
 global.app = {
-  isBuild: process.argv.includes('--build'),
-  isDev: !process.argv.includes('--build'),
+  isBuild: isBuild,
+  isDev: isDev,
   gulp: gulp,
   path: path,
   plugins: plugins,
@@ -27,13 +30,12 @@ export const watch = () => {
   gulp.watch(path.watch.styles, styles);
   gulp.watch(path.watch.scripts, scripts);
   gulp.watch(path.watch.html, html);
-  server();
 }
 
-const fonts = gulp.series(otfToTtf, ttfToWoff, fontsStyle);
+export const fonts = gulp.series(otfToTtf, ttfToWoff, fontsStyle);
 
-export const dev = gulp.series(clean, fonts, svgSprite, gulp.parallel(html, images, styles, scripts), watch);
 export const build = gulp.series(clean, fonts, svgSprite, gulp.parallel(html, images, styles, scripts));
-export const deployZIP = gulp.series(clean, fonts, svgSprite, gulp.parallel(html, images, styles, scripts), zip);
+export const deployZIP = gulp.series(build, zip);
+export const dev = gulp.series(build, server, watch);
 
-export default dev;
+export default isBuild ? build : dev;

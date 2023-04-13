@@ -7,8 +7,8 @@
   "scripts": {
     "sprite": "gulp svgSprite",
     "dev": "gulp",
-    "build": "gulp build --build",
-    "zip": "gulp deployZIP --build"
+    "build": "gulp --production",
+    "zip": "gulp deployZIP --production"
   },
   "keywords": [],
   "author": "",

@@ -32,35 +32,35 @@ export const fontsStyle = async () => {
       if (!fs.existsSync(fontsFile)) {
         fs.writeFile(fontsFile, '', cb);
         let newFileOnly;
-        for (let i = 0; i < fontsFiles.length; i++) {
-          const fontFileName = fontsFiles[i].split('.')[0];
+        fontsFiles.forEach(fontFile => {
+          const fontFileName = fontFile.split('.')[0];
           if (newFileOnly !== fontFileName) {
             const fontName = fontFileName.split('-')[0] ? fontFileName.split('-')[0] : fontFileName;
             let fontWeight = fontFileName.split('-')[1] ? fontFileName.split('-')[1] : fontFileName;
-            if (fontWeight.toLowerCase() == 'thin') {
-              fontWeight = 100;
-            } else if (fontWeight.toLowerCase() == 'extralight') {
-              fontWeight = 200;
-            } else if (fontWeight.toLowerCase() == 'light') {
-              fontWeight = 300;
-            } else if (fontWeight.toLowerCase() == 'medium') {
-              fontWeight = 500;
-            } else if (fontWeight.toLowerCase() == 'semibold') {
-              fontWeight = 600;
-            } else if (fontWeight.toLowerCase() == 'bold') {
-              fontWeight = 700;
-            } else if (fontWeight.toLowerCase() == 'extrabold') {
-              fontWeight = 800;
-            } else if (fontWeight.toLowerCase() == 'black') {
-              fontWeight = 900;
-            } else {
-              fontWeight = 400;
+            const fontStyle = fontWeight.toLowerCase().includes('italic') ? 'italic' : 'normal';
+            switch (fontWeight.toLowerCase()) {
+              case 'thin': fontWeight = 100; break;
+              case 'extralight': fontWeight = 200; break;
+              case 'light': fontWeight = 300; break;
+              case 'medium': fontWeight = 500; break;
+              case 'semibold': fontWeight = 600; break;
+              case 'bold': fontWeight = 700; break;
+              case 'extrabold': fontWeight = 800; break;
+              case 'black': fontWeight = 900; break;
+              default: fontWeight = 400;
             }
-            fs.appendFile(fontsFile,
-              `@font-face\n\tfont-family: ${fontName}\n\tfont-display: swap\n\tsrc: url("../fonts/${fontFileName}.woff2") format("woff2"), url("../fonts/${fontFileName}.woff") format("woff")\n\tfont-weight: ${fontWeight}\n\tfont-style: normal\n\r\n`, cb);
+            const str =
+              "@font-face\n\tfont-family: ".concat(fontName,
+                "\n\tfont-display: swap\n\tsrc: url('../font/", fontFileName,
+                ".woff2') format('woff2'), url('../font/", fontFileName,
+                ".woff') format('woff')\n\tfont-weight: ", fontWeight,
+                "\n\tfont-style: ", fontStyle,
+                "\n\r\n"
+              );
+            fs.appendFile(fontsFile, str, cb);
             newFileOnly = fontFileName;
           }
-        }
+        });
       } else {
         console.log('file styles/includes/_fonts.sass already exist...');
       }
