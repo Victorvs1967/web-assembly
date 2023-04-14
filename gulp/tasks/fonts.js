@@ -38,7 +38,8 @@ export const fontsStyle = async () => {
             const fontName = fontFileName.split('-')[0] ? fontFileName.split('-')[0] : fontFileName;
             let fontWeight = fontFileName.split('-')[1] ? fontFileName.split('-')[1] : fontFileName;
             const fontStyle = fontWeight.toLowerCase().includes('italic') ? 'italic' : 'normal';
-            switch (fontWeight.toLowerCase()) {
+            fontWeight = fontWeight.toLowerCase().includes('italic') ? fontWeight.slice(0, -6) : fontWeight;
+             switch (fontWeight.toLowerCase()) {
               case 'thin': fontWeight = 100; break;
               case 'extralight': fontWeight = 200; break;
               case 'light': fontWeight = 300; break;
